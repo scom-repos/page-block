@@ -1,0 +1,77 @@
+/// <amd-module name="@scom/page-block/interface.ts" />
+declare module "@scom/page-block/interface.ts" {
+    export interface ISettings {
+        height?: number | string;
+        width?: number | string;
+        backgroundImageUrl?: string;
+        direction?: 'horizontal' | 'vertical';
+        gap?: number | string;
+        light?: IColors;
+        dark?: IColors;
+    }
+    export interface IColors {
+        backgroundColor?: string;
+    }
+}
+/// <amd-module name="@scom/page-block/model/index.ts" />
+declare module "@scom/page-block/model/index.ts" {
+    import { ISettings } from "@scom/page-block/interface.ts";
+    interface IOptions {
+        onUpdateBlock: () => void;
+        onUpdateTheme: () => void;
+    }
+    export class Model {
+        private _tag;
+        private _options;
+        constructor(options: IOptions);
+        get tag(): ISettings;
+        set tag(value: ISettings);
+        private getData;
+        setData(): void;
+        private getTag;
+        private setTag;
+        private updateTag;
+        getConfigurators(): {
+            name: string;
+            target: string;
+            getActions: () => any[];
+            getData: any;
+            setData: any;
+            getTag: any;
+            setTag: any;
+        }[];
+    }
+}
+/// <amd-module name="@scom/page-block" />
+declare module "@scom/page-block" {
+    import { Module, ControlElement, Container } from '@ijstech/components';
+    interface ScomPageBlockElement extends ControlElement {
+    }
+    global {
+        namespace JSX {
+            interface IntrinsicElements {
+                ["i-scom-page-block"]: ScomPageBlockElement;
+            }
+        }
+    }
+    export default class ScomPageBlock extends Module {
+        private pnlWrapper;
+        private model;
+        static create(options?: ScomPageBlockElement, parent?: Container): Promise<ScomPageBlock>;
+        constructor(parent?: Container, options?: ScomPageBlockElement);
+        getConfigurators(): {
+            name: string;
+            target: string;
+            getActions: () => any[];
+            getData: any;
+            setData: any;
+            getTag: any;
+            setTag: any;
+        }[];
+        private onUpdateBlock;
+        private updateStyle;
+        private onUpdateTheme;
+        init(): void;
+        render(): any;
+    }
+}
