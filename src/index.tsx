@@ -17,13 +17,13 @@ interface ScomPageBlockElement extends ControlElement {
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      ["i-scom-page-block"]: ScomPageBlockElement;
+      ["i-page-block"]: ScomPageBlockElement;
     }
   }
 }
 
 @customModule
-@customElements('i-scom-page-block')
+@customElements('i-page-block')
 export default class ScomPageBlock extends Module {
   private pnlWrapper: StackLayout;
 

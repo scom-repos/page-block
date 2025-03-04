@@ -50,7 +50,7 @@ declare module "@scom/page-block" {
     global {
         namespace JSX {
             interface IntrinsicElements {
-                ["i-scom-page-block"]: ScomPageBlockElement;
+                ["i-page-block"]: ScomPageBlockElement;
             }
         }
     }

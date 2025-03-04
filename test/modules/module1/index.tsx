@@ -27,7 +27,7 @@ export default class Module1 extends Module {
 
     render() {
         return <i-panel margin={{left: '1rem', top: '1rem'}}>
-            <i-scom-page-block
+            <i-page-block
                 id="el"
             />
         </i-panel>

@@ -121,7 +121,7 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
     };
     ScomPageBlock = __decorate([
         components_1.customModule,
-        (0, components_1.customElements)('i-scom-page-block')
+        (0, components_1.customElements)('i-page-block')
     ], ScomPageBlock);
     exports.default = ScomPageBlock;
 });
