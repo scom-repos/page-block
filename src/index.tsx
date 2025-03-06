@@ -8,6 +8,7 @@ import {
   StackLayout
 } from '@ijstech/components';
 import { Model } from './model/index';
+import { containerStyle } from './index.css';
 
 const Theme = Styles.Theme.ThemeVars;
 
@@ -49,21 +50,29 @@ export default class ScomPageBlock extends Module {
       direction = 'vertical',
       gap = 0,
       height = 'auto',
-      width = 'auto'
-    } = this.model.tag || {};
+      width = 'auto',
+      margin,
+      padding,
+      maxWidth
+     } = this.model.tag || {};
 
     this.pnlWrapper.direction = direction;
     this.pnlWrapper.gap = gap;
-    this.pnlWrapper.height = height;
-    this.pnlWrapper.width = width;
+    this.height = height;
+    this.width = width;
+    this.display = "block";
+
+    if (maxWidth !== undefined) this.maxWidth = maxWidth;
+    if (margin) this.margin = margin;
+    if (padding) this.padding = padding;
     
     const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
     if (this.model.tag[themeVar]) {
-      this.pnlWrapper.background.color = Theme.background.main;
+      this.background.color = Theme.background.main;
     } else {
-      this.pnlWrapper.background.color = 'transparent';
+      this.background.color = 'transparent';
     }
-    if (backgroundImageUrl) this.pnlWrapper.background.color = `url(${backgroundImageUrl}) center center / cover no-repeat`;
+    if (backgroundImageUrl) this.background.color = `url(${backgroundImageUrl}) center center / cover no-repeat`;
   }
 
   private updateStyle(name: string, value: any) {
@@ -87,7 +96,9 @@ export default class ScomPageBlock extends Module {
     return (
       <i-stack
         id="pnlWrapper"
+        direction='vertical'
         width="100%"
+        class={containerStyle}
       />
     )
   }

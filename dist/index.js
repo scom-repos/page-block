@@ -69,11 +69,24 @@ define("@scom/page-block/model/index.ts", ["require", "exports"], function (requ
     }
     exports.Model = Model;
 });
-define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/page-block/model/index.ts"], function (require, exports, components_1, index_1) {
+define("@scom/page-block/index.css.ts", ["require", "exports", "@ijstech/components"], function (require, exports, components_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.containerStyle = void 0;
     const Theme = components_1.Styles.Theme.ThemeVars;
-    let ScomPageBlock = class ScomPageBlock extends components_1.Module {
+    exports.containerStyle = components_1.Styles.style({
+        width: 'var(--layout-container-width)',
+        maxWidth: 'var(--layout-container-max_width)',
+        overflow: 'hidden',
+        textAlign: 'var(--layout-container-text_align)',
+        margin: '0 auto',
+    });
+});
+define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/page-block/model/index.ts", "@scom/page-block/index.css.ts"], function (require, exports, components_2, index_1, index_css_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    const Theme = components_2.Styles.Theme.ThemeVars;
+    let ScomPageBlock = class ScomPageBlock extends components_2.Module {
         static async create(options, parent) {
             let self = new this(parent, options);
             await self.ready();
@@ -86,20 +99,27 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
             return this.model.getConfigurators();
         }
         onUpdateBlock() {
-            const { backgroundImageUrl = '', direction = 'vertical', gap = 0, height = 'auto', width = 'auto' } = this.model.tag || {};
+            const { backgroundImageUrl = '', direction = 'vertical', gap = 0, height = 'auto', width = 'auto', margin, padding, maxWidth } = this.model.tag || {};
             this.pnlWrapper.direction = direction;
             this.pnlWrapper.gap = gap;
-            this.pnlWrapper.height = height;
-            this.pnlWrapper.width = width;
+            this.height = height;
+            this.width = width;
+            this.display = "block";
+            if (maxWidth !== undefined)
+                this.maxWidth = maxWidth;
+            if (margin)
+                this.margin = margin;
+            if (padding)
+                this.padding = padding;
             const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
             if (this.model.tag[themeVar]) {
-                this.pnlWrapper.background.color = Theme.background.main;
+                this.background.color = Theme.background.main;
             }
             else {
-                this.pnlWrapper.background.color = 'transparent';
+                this.background.color = 'transparent';
             }
             if (backgroundImageUrl)
-                this.pnlWrapper.background.color = `url(${backgroundImageUrl}) center center / cover no-repeat`;
+                this.background.color = `url(${backgroundImageUrl}) center center / cover no-repeat`;
         }
         updateStyle(name, value) {
             value ? this.style.setProperty(name, value) : this.style.removeProperty(name);
@@ -116,12 +136,12 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
             });
         }
         render() {
-            return (this.$render("i-stack", { id: "pnlWrapper", width: "100%" }));
+            return (this.$render("i-stack", { id: "pnlWrapper", direction: 'vertical', width: "100%", class: index_css_1.containerStyle }));
         }
     };
     ScomPageBlock = __decorate([
-        components_1.customModule,
-        (0, components_1.customElements)('i-page-block')
+        components_2.customModule,
+        (0, components_2.customElements)('i-page-block')
     ], ScomPageBlock);
     exports.default = ScomPageBlock;
 });

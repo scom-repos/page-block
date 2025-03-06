@@ -1,11 +1,15 @@
 /// <amd-module name="@scom/page-block/interface.ts" />
 declare module "@scom/page-block/interface.ts" {
+    import { ISpace } from "@ijstech/components";
     export interface ISettings {
         height?: number | string;
         width?: number | string;
         backgroundImageUrl?: string;
         direction?: 'horizontal' | 'vertical';
         gap?: number | string;
+        margin?: ISpace;
+        padding?: ISpace;
+        maxWidth?: number | string;
         light?: IColors;
         dark?: IColors;
     }
@@ -41,6 +45,10 @@ declare module "@scom/page-block/model/index.ts" {
             setTag: any;
         }[];
     }
+}
+/// <amd-module name="@scom/page-block/index.css.ts" />
+declare module "@scom/page-block/index.css.ts" {
+    export const containerStyle: string;
 }
 /// <amd-module name="@scom/page-block" />
 declare module "@scom/page-block" {
