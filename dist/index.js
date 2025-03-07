@@ -99,7 +99,7 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
             return this.model.getConfigurators();
         }
         onUpdateBlock() {
-            const { backgroundImageUrl = '', direction = 'vertical', gap = 0, height = 'auto', width = 'auto', margin, padding, maxWidth } = this.model.tag || {};
+            const { backgroundImageUrl = '', direction = 'vertical', gap = 0, height = 'auto', width = 'auto', margin, padding, maxWidth, justifyContent, alignItems, overlay } = this.model.tag || {};
             this.pnlWrapper.direction = direction;
             this.pnlWrapper.gap = gap;
             this.height = height;
@@ -110,7 +110,11 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
             if (margin)
                 this.margin = margin;
             if (padding)
-                this.padding = padding;
+                this.pnlWrapper.padding = padding;
+            if (justifyContent)
+                this.pnlWrapper.justifyContent = justifyContent;
+            if (alignItems)
+                this.pnlWrapper.alignItems = alignItems;
             const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
             if (this.model.tag[themeVar]) {
                 this.background.color = Theme.background.main;
@@ -120,6 +124,8 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
             }
             if (backgroundImageUrl)
                 this.background.color = `url(${backgroundImageUrl}) center center / cover no-repeat`;
+            this.pnlOverlay.visible = !!overlay;
+            this.pnlOverlay.background = { color: overlay };
         }
         updateStyle(name, value) {
             value ? this.style.setProperty(name, value) : this.style.removeProperty(name);
@@ -136,7 +142,9 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
             });
         }
         render() {
-            return (this.$render("i-stack", { id: "pnlWrapper", direction: 'vertical', width: "100%", class: index_css_1.containerStyle }));
+            return (this.$render("i-panel", { width: "100%", height: "100%" },
+                this.$render("i-panel", { id: "pnlOverlay", top: "0", left: "0", width: "100%", height: "100%", visible: false }),
+                this.$render("i-stack", { id: "pnlWrapper", direction: 'vertical', width: "100%", class: index_css_1.containerStyle })));
         }
     };
     ScomPageBlock = __decorate([

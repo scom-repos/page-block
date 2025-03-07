@@ -5,7 +5,8 @@ import {
   ControlElement,
   customElements,
   Container,
-  StackLayout
+  StackLayout,
+  Panel
 } from '@ijstech/components';
 import { Model } from './model/index';
 import { containerStyle } from './index.css';
@@ -27,6 +28,7 @@ declare global {
 @customElements('i-page-block')
 export default class ScomPageBlock extends Module {
   private pnlWrapper: StackLayout;
+  private pnlOverlay: Panel;
 
   private model: Model;
 
@@ -53,7 +55,10 @@ export default class ScomPageBlock extends Module {
       width = 'auto',
       margin,
       padding,
-      maxWidth
+      maxWidth,
+      justifyContent,
+      alignItems,
+      overlay
      } = this.model.tag || {};
 
     this.pnlWrapper.direction = direction;
@@ -64,7 +69,10 @@ export default class ScomPageBlock extends Module {
 
     if (maxWidth !== undefined) this.maxWidth = maxWidth;
     if (margin) this.margin = margin;
-    if (padding) this.padding = padding;
+    if (padding) this.pnlWrapper.padding = padding;
+
+    if (justifyContent) this.pnlWrapper.justifyContent = justifyContent as any;
+    if (alignItems) this.pnlWrapper.alignItems = alignItems as any;
     
     const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
     if (this.model.tag[themeVar]) {
@@ -73,6 +81,8 @@ export default class ScomPageBlock extends Module {
       this.background.color = 'transparent';
     }
     if (backgroundImageUrl) this.background.color = `url(${backgroundImageUrl}) center center / cover no-repeat`;
+    this.pnlOverlay.visible = !!overlay;
+    this.pnlOverlay.background = {color: overlay};
   }
 
   private updateStyle(name: string, value: any) {
@@ -94,12 +104,20 @@ export default class ScomPageBlock extends Module {
 
   render() {
     return (
-      <i-stack
-        id="pnlWrapper"
-        direction='vertical'
-        width="100%"
-        class={containerStyle}
-      />
+      <i-panel width="100%" height="100%">
+        <i-panel
+          id="pnlOverlay"
+          top="0" left="0"
+          width="100%" height="100%"
+          visible={false}
+        />
+        <i-stack
+          id="pnlWrapper"
+          direction='vertical'
+          width="100%"
+          class={containerStyle}
+        />
+      </i-panel>
     )
   }
 }

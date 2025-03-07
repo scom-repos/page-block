@@ -6,12 +6,15 @@ declare module "@scom/page-block/interface.ts" {
         width?: number | string;
         backgroundImageUrl?: string;
         direction?: 'horizontal' | 'vertical';
+        justifyContent?: string;
+        alignItems?: string;
         gap?: number | string;
         margin?: ISpace;
         padding?: ISpace;
         maxWidth?: number | string;
         light?: IColors;
         dark?: IColors;
+        overlay?: string;
     }
     export interface IColors {
         backgroundColor?: string;
@@ -64,6 +67,7 @@ declare module "@scom/page-block" {
     }
     export default class ScomPageBlock extends Module {
         private pnlWrapper;
+        private pnlOverlay;
         private model;
         static create(options?: ScomPageBlockElement, parent?: Container): Promise<ScomPageBlock>;
         constructor(parent?: Container, options?: ScomPageBlockElement);

@@ -5,12 +5,15 @@ export interface ISettings {
   width?: number|string;
   backgroundImageUrl?: string;
   direction?: 'horizontal'|'vertical';
+  justifyContent?: string;
+  alignItems?: string;
   gap?: number|string;
   margin?: ISpace;
   padding?: ISpace;
   maxWidth?: number|string;
   light?: IColors;
   dark?: IColors;
+  overlay?: string;
 }
 
 export interface IColors {
