@@ -58,7 +58,8 @@ export default class ScomPageBlock extends Module {
       maxWidth,
       justifyContent,
       alignItems,
-      overlay
+      overlay,
+      stack
      } = this.model.tag || {};
 
     this.pnlWrapper.direction = direction;
@@ -73,6 +74,7 @@ export default class ScomPageBlock extends Module {
 
     if (justifyContent) this.pnlWrapper.justifyContent = justifyContent as any;
     if (alignItems) this.pnlWrapper.alignItems = alignItems as any;
+    if (stack) this.stack = stack;
     
     const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
     if (this.model.tag[themeVar]) {
@@ -115,6 +117,14 @@ export default class ScomPageBlock extends Module {
           id="pnlWrapper"
           direction='vertical'
           width="100%"
+          mediaQueries={[
+            {
+              maxWidth: "767px",
+              properties: {
+                direction: 'vertical'
+              }
+            }
+          ]}
           class={containerStyle}
         />
       </i-panel>

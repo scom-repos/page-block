@@ -14,8 +14,15 @@ export interface ISettings {
   light?: IColors;
   dark?: IColors;
   overlay?: string;
+  stack?: IStack;
 }
 
 export interface IColors {
   backgroundColor?: string;
+}
+
+export interface IStack {
+  grow?: string;
+  shrink?: string;
+  basis?: string;
 }

@@ -15,9 +15,15 @@ declare module "@scom/page-block/interface.ts" {
         light?: IColors;
         dark?: IColors;
         overlay?: string;
+        stack?: IStack;
     }
     export interface IColors {
         backgroundColor?: string;
+    }
+    export interface IStack {
+        grow?: string;
+        shrink?: string;
+        basis?: string;
     }
 }
 /// <amd-module name="@scom/page-block/model/index.ts" />
