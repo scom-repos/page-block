@@ -6,7 +6,8 @@ import {
   customElements,
   Container,
   StackLayout,
-  Panel
+  Panel,
+  Control
 } from '@ijstech/components';
 import { Model } from './model/index';
 import { containerStyle } from './index.css';
@@ -25,7 +26,13 @@ declare global {
 }
 
 @customModule
-@customElements('i-page-block')
+@customElements('i-page-block', {
+  icon: 'stop',
+  props: {
+  },
+  className: 'ScomPageBlock',
+  events: {}
+})
 export default class ScomPageBlock extends Module {
   private pnlWrapper: StackLayout;
   private pnlOverlay: Panel;
@@ -96,12 +103,35 @@ export default class ScomPageBlock extends Module {
     this.updateStyle('--background-main', this.model.tag[themeVar]?.backgroundColor);
   }
 
+  add(item: Control) {
+    item.parent = this.pnlWrapper;
+    this.pnlWrapper.appendChild(item);
+    this._controls.push(item);
+    return item;
+  }
+
   init() {
+    const children = this.children;
+    const childNodes = [];
+    for (const child of children) {
+      if (child.nodeName !== 'I-PANEL') {
+        childNodes.push(child);
+      }
+    }
     super.init();
     this.model = new Model({
       onUpdateBlock: this.onUpdateBlock.bind(this),
       onUpdateTheme: this.onUpdateTheme.bind(this)
     });
+
+    for (const child of childNodes) {
+      this.pnlWrapper.appendChild(child);
+    }
+
+    const tag = this.getAttribute('tag', true);
+    if (tag) {
+      this.model.setTag(tag);
+    }
   }
 
   render() {
