@@ -42,7 +42,7 @@ declare module "@scom/page-block/model/index.ts" {
         private getData;
         setData(): void;
         private getTag;
-        private setTag;
+        setTag(value: ISettings): void;
         private updateTag;
         getConfigurators(): {
             name: string;
@@ -61,7 +61,7 @@ declare module "@scom/page-block/index.css.ts" {
 }
 /// <amd-module name="@scom/page-block" />
 declare module "@scom/page-block" {
-    import { Module, ControlElement, Container } from '@ijstech/components';
+    import { Module, ControlElement, Container, Control } from '@ijstech/components';
     interface ScomPageBlockElement extends ControlElement {
     }
     global {
@@ -89,6 +89,7 @@ declare module "@scom/page-block" {
         private onUpdateBlock;
         private updateStyle;
         private onUpdateTheme;
+        add(item: Control): Control;
         init(): void;
         render(): any;
     }
