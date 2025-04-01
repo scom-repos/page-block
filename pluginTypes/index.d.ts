@@ -4,7 +4,6 @@ declare module "@scom/page-block/interface.ts" {
     export interface ISettings {
         height?: number | string;
         width?: number | string;
-        backgroundImageUrl?: string;
         direction?: 'horizontal' | 'vertical';
         justifyContent?: string;
         alignItems?: string;
@@ -16,9 +15,12 @@ declare module "@scom/page-block/interface.ts" {
         dark?: IColors;
         overlay?: string;
         stack?: IStack;
+        background?: {
+            color?: string;
+            image?: string;
+        };
     }
     export interface IColors {
-        backgroundColor?: string;
     }
     export interface IStack {
         grow?: string;

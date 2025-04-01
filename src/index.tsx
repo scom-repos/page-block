@@ -55,7 +55,7 @@ export default class ScomPageBlock extends Module {
 
   private onUpdateBlock() {
     const {
-      backgroundImageUrl = '',
+      background,
       direction = 'vertical',
       gap = 0,
       height = 'auto',
@@ -83,13 +83,16 @@ export default class ScomPageBlock extends Module {
     if (alignItems) this.pnlWrapper.alignItems = alignItems as any;
     if (stack) this.stack = stack;
     
-    const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
-    if (this.model.tag[themeVar]) {
-      this.background.color = Theme.background.main;
-    } else {
-      this.background.color = 'transparent';
-    }
-    if (backgroundImageUrl) this.background.color = `url(${backgroundImageUrl}) center center / cover no-repeat`;
+    // const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
+    // if (this.model.tag[themeVar]) {
+    //   this.background.color = Theme.background.main;
+    // } else {
+    //   this.background.color = 'transparent';
+    // }
+
+    if (background?.color) this.background.color = background.color;
+    else this.background.color = 'transparent';
+    if (background?.image) this.background.color = `url(${background.image}) center center / cover no-repeat`;
     this.pnlOverlay.visible = !!overlay;
     this.pnlOverlay.background = {color: overlay};
   }
