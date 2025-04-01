@@ -99,7 +99,7 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
             return this.model.getConfigurators();
         }
         onUpdateBlock() {
-            const { backgroundImageUrl = '', direction = 'vertical', gap = 0, height = 'auto', width = 'auto', margin, padding, maxWidth, justifyContent, alignItems, overlay, stack } = this.model.tag || {};
+            const { background, direction = 'vertical', gap = 0, height = 'auto', width = 'auto', margin, padding, maxWidth, justifyContent, alignItems, overlay, stack } = this.model.tag || {};
             this.pnlWrapper.direction = direction;
             this.pnlWrapper.gap = gap;
             this.height = height;
@@ -117,15 +117,18 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
                 this.pnlWrapper.alignItems = alignItems;
             if (stack)
                 this.stack = stack;
-            const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
-            if (this.model.tag[themeVar]) {
-                this.background.color = Theme.background.main;
-            }
-            else {
+            // const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
+            // if (this.model.tag[themeVar]) {
+            //   this.background.color = Theme.background.main;
+            // } else {
+            //   this.background.color = 'transparent';
+            // }
+            if (background?.color)
+                this.background.color = background.color;
+            else
                 this.background.color = 'transparent';
-            }
-            if (backgroundImageUrl)
-                this.background.color = `url(${backgroundImageUrl}) center center / cover no-repeat`;
+            if (background?.image)
+                this.background.color = `url(${background.image}) center center / cover no-repeat`;
             this.pnlOverlay.visible = !!overlay;
             this.pnlOverlay.background = { color: overlay };
         }
