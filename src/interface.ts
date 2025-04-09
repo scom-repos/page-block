@@ -10,6 +10,7 @@ export interface ISettings {
   margin?: ISpace;
   padding?: ISpace;
   maxWidth?: number|string;
+  minHeight?: number|string;
   light?: IColors;
   dark?: IColors;
   overlay?: string;
