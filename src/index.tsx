@@ -60,6 +60,7 @@ export default class ScomPageBlock extends Module {
       gap = 0,
       height = 'auto',
       width = 'auto',
+      minHeight,
       margin,
       padding,
       maxWidth,
@@ -72,8 +73,9 @@ export default class ScomPageBlock extends Module {
     this.pnlWrapper.direction = direction;
     this.pnlWrapper.gap = gap;
     this.height = height;
+    if (minHeight) this.minHeight = minHeight;
     this.width = width;
-    this.display = "block";
+    this.display = "flex";
 
     if (maxWidth !== undefined) this.maxWidth = maxWidth;
     if (margin) this.margin = margin;
@@ -139,7 +141,7 @@ export default class ScomPageBlock extends Module {
 
   render() {
     return (
-      <i-panel width="100%" height="100%">
+      <i-panel width="100%" stack={{grow: "1"}}>
         <i-panel
           id="pnlOverlay"
           top="0" left="0"
@@ -150,6 +152,7 @@ export default class ScomPageBlock extends Module {
           id="pnlWrapper"
           direction='vertical'
           width="100%"
+          height="100%"
           mediaQueries={[
             {
               maxWidth: "767px",

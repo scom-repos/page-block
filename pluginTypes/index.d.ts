@@ -11,6 +11,7 @@ declare module "@scom/page-block/interface.ts" {
         margin?: ISpace;
         padding?: ISpace;
         maxWidth?: number | string;
+        minHeight?: number | string;
         light?: IColors;
         dark?: IColors;
         overlay?: string;
