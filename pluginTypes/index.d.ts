@@ -20,6 +20,8 @@ declare module "@scom/page-block/interface.ts" {
             color?: string;
             image?: string;
         };
+        backgroundAttachment?: string;
+        transform?: string;
     }
     export interface IColors {
     }

@@ -67,7 +67,9 @@ export default class ScomPageBlock extends Module {
       justifyContent,
       alignItems,
       overlay,
-      stack
+      stack,
+      backgroundAttachment = '',
+      transform = ''
      } = this.model.tag || {};
 
     this.pnlWrapper.direction = direction;
@@ -77,26 +79,24 @@ export default class ScomPageBlock extends Module {
     this.width = width;
     this.display = "flex";
 
-    if (maxWidth !== undefined) this.maxWidth = maxWidth;
+    if (maxWidth !== undefined) {
+      this.maxWidth = maxWidth;
+      this.pnlWrapper.maxWidth = maxWidth;
+    }
+
     if (margin) this.margin = margin;
     if (padding) this.pnlWrapper.padding = padding;
-
     if (justifyContent) this.pnlWrapper.justifyContent = justifyContent as any;
     if (alignItems) this.pnlWrapper.alignItems = alignItems as any;
     if (stack) this.stack = stack;
-    
-    // const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
-    // if (this.model.tag[themeVar]) {
-    //   this.background.color = Theme.background.main;
-    // } else {
-    //   this.background.color = 'transparent';
-    // }
 
     if (background?.color) this.background.color = background.color;
     else this.background.color = 'transparent';
     if (background?.image) this.background.color = `url(${background.image}) center center / cover no-repeat`;
     this.pnlOverlay.visible = !!overlay;
     this.pnlOverlay.background = {color: overlay};
+    if (backgroundAttachment) this.style.backgroundAttachment = backgroundAttachment;
+    if (transform) this.style.transform = transform;
   }
 
   private updateStyle(name: string, value: any) {
