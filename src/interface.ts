@@ -16,6 +16,8 @@ export interface ISettings {
   overlay?: string;
   stack?: IStack;
   background?: {color?: string, image?: string};
+  backgroundAttachment?: string;
+  transform?: string;
 }
 
 export interface IColors {

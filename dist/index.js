@@ -99,7 +99,7 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
             return this.model.getConfigurators();
         }
         onUpdateBlock() {
-            const { background, direction = 'vertical', gap = 0, height = 'auto', width = 'auto', minHeight, margin, padding, maxWidth, justifyContent, alignItems, overlay, stack } = this.model.tag || {};
+            const { background, direction = 'vertical', gap = 0, height = 'auto', width = 'auto', minHeight, margin, padding, maxWidth, justifyContent, alignItems, overlay, stack, backgroundAttachment = '', transform = '' } = this.model.tag || {};
             this.pnlWrapper.direction = direction;
             this.pnlWrapper.gap = gap;
             this.height = height;
@@ -107,8 +107,10 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
                 this.minHeight = minHeight;
             this.width = width;
             this.display = "flex";
-            if (maxWidth !== undefined)
+            if (maxWidth !== undefined) {
                 this.maxWidth = maxWidth;
+                this.pnlWrapper.maxWidth = maxWidth;
+            }
             if (margin)
                 this.margin = margin;
             if (padding)
@@ -119,12 +121,6 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
                 this.pnlWrapper.alignItems = alignItems;
             if (stack)
                 this.stack = stack;
-            // const themeVar = document.body.style.getPropertyValue('--theme') || 'dark';
-            // if (this.model.tag[themeVar]) {
-            //   this.background.color = Theme.background.main;
-            // } else {
-            //   this.background.color = 'transparent';
-            // }
             if (background?.color)
                 this.background.color = background.color;
             else
@@ -133,6 +129,10 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
                 this.background.color = `url(${background.image}) center center / cover no-repeat`;
             this.pnlOverlay.visible = !!overlay;
             this.pnlOverlay.background = { color: overlay };
+            if (backgroundAttachment)
+                this.style.backgroundAttachment = backgroundAttachment;
+            if (transform)
+                this.style.transform = transform;
         }
         updateStyle(name, value) {
             value ? this.style.setProperty(name, value) : this.style.removeProperty(name);
