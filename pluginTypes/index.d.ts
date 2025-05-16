@@ -67,6 +67,7 @@ declare module "@scom/page-block/index.css.ts" {
 /// <amd-module name="@scom/page-block" />
 declare module "@scom/page-block" {
     import { Module, ControlElement, Container, Control } from '@ijstech/components';
+    import { ISettings } from "@scom/page-block/interface.ts";
     interface ScomPageBlockElement extends ControlElement {
     }
     global {
@@ -82,6 +83,7 @@ declare module "@scom/page-block" {
         private model;
         static create(options?: ScomPageBlockElement, parent?: Container): Promise<ScomPageBlock>;
         constructor(parent?: Container, options?: ScomPageBlockElement);
+        setTag(value: ISettings): void;
         getConfigurators(): {
             name: string;
             target: string;

@@ -11,6 +11,7 @@ import {
 } from '@ijstech/components';
 import { Model } from './model/index';
 import { containerStyle } from './index.css';
+import { ISettings } from './interface';
 
 const Theme = Styles.Theme.ThemeVars;
 
@@ -49,6 +50,10 @@ export default class ScomPageBlock extends Module {
     super(parent, options);
   }
 
+  setTag(value: ISettings) {
+    this.model.setTag(value);
+  }
+
   getConfigurators() {
     return this.model.getConfigurators();
   }
@@ -58,8 +63,8 @@ export default class ScomPageBlock extends Module {
       background,
       direction = 'vertical',
       gap = 0,
-      height = 'auto',
-      width = 'auto',
+      height = '100%',
+      width = '100%',
       minHeight,
       margin,
       padding,
@@ -134,9 +139,7 @@ export default class ScomPageBlock extends Module {
     }
 
     const tag = this.getAttribute('tag', true);
-    if (tag) {
-      this.model.setTag(tag);
-    }
+    if (tag) this.setTag(tag);
   }
 
   render() {
@@ -146,7 +149,6 @@ export default class ScomPageBlock extends Module {
           id="pnlOverlay"
           top="0" left="0"
           width="100%" height="100%"
-          visible={false}
         />
         <i-stack
           id="pnlWrapper"
