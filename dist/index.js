@@ -95,11 +95,14 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
         constructor(parent, options) {
             super(parent, options);
         }
+        setTag(value) {
+            this.model.setTag(value);
+        }
         getConfigurators() {
             return this.model.getConfigurators();
         }
         onUpdateBlock() {
-            const { background, direction = 'vertical', gap = 0, height = 'auto', width = 'auto', minHeight, margin, padding, maxWidth, justifyContent, alignItems, overlay, stack, backgroundAttachment = '', transform = '' } = this.model.tag || {};
+            const { background, direction = 'vertical', gap = 0, height = '100%', width = '100%', minHeight, margin, padding, maxWidth, justifyContent, alignItems, overlay, stack, backgroundAttachment = '', transform = '' } = this.model.tag || {};
             this.pnlWrapper.direction = direction;
             this.pnlWrapper.gap = gap;
             this.height = height;
@@ -164,13 +167,12 @@ define("@scom/page-block", ["require", "exports", "@ijstech/components", "@scom/
                 this.pnlWrapper.appendChild(child);
             }
             const tag = this.getAttribute('tag', true);
-            if (tag) {
-                this.model.setTag(tag);
-            }
+            if (tag)
+                this.setTag(tag);
         }
         render() {
             return (this.$render("i-panel", { width: "100%", stack: { grow: "1" } },
-                this.$render("i-panel", { id: "pnlOverlay", top: "0", left: "0", width: "100%", height: "100%", visible: false }),
+                this.$render("i-panel", { id: "pnlOverlay", top: "0", left: "0", width: "100%", height: "100%" }),
                 this.$render("i-stack", { id: "pnlWrapper", direction: 'vertical', width: "100%", height: "100%", mediaQueries: [
                         {
                             maxWidth: "767px",
